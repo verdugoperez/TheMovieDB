@@ -58,17 +58,58 @@
                                     <constraint firstAttribute="height" constant="250" id="nBd-7c-RPM"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sm2-45-zBK">
+                                <rect key="frame" x="10" y="358" width="394" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uJi-ye-gQm">
+                                <rect key="frame" x="329" y="93" width="80" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calificación:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QrA-wF-fqb">
+                                        <rect key="frame" x="-2" y="12" width="84" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.80214000883556547" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="QrA-wF-fqb" firstAttribute="centerY" secondItem="uJi-ye-gQm" secondAttribute="centerY" id="39H-Zf-Art"/>
+                                    <constraint firstAttribute="width" constant="80" id="HVG-Gh-4jl"/>
+                                    <constraint firstItem="QrA-wF-fqb" firstAttribute="centerX" secondItem="uJi-ye-gQm" secondAttribute="centerX" id="TaS-3p-QOf"/>
+                                    <constraint firstAttribute="height" constant="40" id="rNx-Vr-4JF"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Director" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="INF-Q6-h91">
+                                <rect key="frame" x="10" y="830.5" width="394" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="F0F-9Y-lcG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="uJi-ye-gQm" firstAttribute="top" secondItem="F0F-9Y-lcG" secondAttribute="top" constant="5" id="6Wa-Zr-K3G"/>
                             <constraint firstItem="2wg-Pb-7dN" firstAttribute="top" secondItem="F0F-9Y-lcG" secondAttribute="top" id="8nP-yj-sbL"/>
+                            <constraint firstItem="INF-Q6-h91" firstAttribute="leading" secondItem="F0F-9Y-lcG" secondAttribute="leading" constant="10" id="CZY-NE-90S"/>
+                            <constraint firstItem="F0F-9Y-lcG" firstAttribute="bottom" secondItem="INF-Q6-h91" secondAttribute="bottom" constant="10" id="DSj-2D-zP3"/>
                             <constraint firstItem="2wg-Pb-7dN" firstAttribute="leading" secondItem="F0F-9Y-lcG" secondAttribute="leading" id="GHN-Uq-6ep"/>
+                            <constraint firstItem="F0F-9Y-lcG" firstAttribute="trailing" secondItem="Sm2-45-zBK" secondAttribute="trailing" constant="10" id="Gpa-xm-Ung"/>
+                            <constraint firstItem="F0F-9Y-lcG" firstAttribute="trailing" secondItem="uJi-ye-gQm" secondAttribute="trailing" constant="5" id="II3-Ae-Bpt"/>
                             <constraint firstItem="F0F-9Y-lcG" firstAttribute="trailing" secondItem="2wg-Pb-7dN" secondAttribute="trailing" id="PF4-j5-hax"/>
+                            <constraint firstItem="Sm2-45-zBK" firstAttribute="leading" secondItem="F0F-9Y-lcG" secondAttribute="leading" constant="10" id="fyM-d8-V4e"/>
+                            <constraint firstItem="Sm2-45-zBK" firstAttribute="top" secondItem="2wg-Pb-7dN" secondAttribute="bottom" constant="20" id="vsa-Uv-Wet"/>
+                            <constraint firstItem="F0F-9Y-lcG" firstAttribute="trailing" secondItem="INF-Q6-h91" secondAttribute="trailing" constant="10" id="wCE-Do-6lp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rGM-Be-QZn"/>
                     <connections>
+                        <outlet property="calificacionLabel" destination="QrA-wF-fqb" id="Pcl-NI-sCX"/>
+                        <outlet property="fechaLabel" destination="INF-Q6-h91" id="9EQ-eD-LRi"/>
+                        <outlet property="overviewLabel" destination="Sm2-45-zBK" id="dm7-rg-iRd"/>
                         <outlet property="portadaImageView" destination="2wg-Pb-7dN" id="Kiu-VJ-PfE"/>
                     </connections>
                 </viewController>
