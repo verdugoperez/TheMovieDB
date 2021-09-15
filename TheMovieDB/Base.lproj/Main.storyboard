@@ -37,11 +37,28 @@
                     <navigationItem key="navigationItem" title="Top Rated Movies" id="tJs-wQ-grR"/>
                     <connections>
                         <outlet property="peliculasTableView" destination="gQJ-E6-dpB" id="1so-b8-JGy"/>
+                        <segue destination="coQ-xg-xBE" kind="show" identifier="peliculaDetalle" id="TZG-7J-bsd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="928.98550724637687" y="75"/>
+        </scene>
+        <!--Pelicula Detalle View Controller-->
+        <scene sceneID="KQ3-cd-86W">
+            <objects>
+                <viewController id="coQ-xg-xBE" customClass="PeliculaDetalleViewController" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h6W-2b-LFE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="F0F-9Y-lcG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rGM-Be-QZn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ACC-1H-2RE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1826" y="76"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BtW-Jd-SmK">

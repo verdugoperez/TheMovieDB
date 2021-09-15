@@ -21,6 +21,17 @@ class ViewController: UIViewController {
         configuraCelda()
         peliculasManager.obtenerTopPeliculas()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Segues.peliculaDetalle {
+            let peliculaDetalleVC = segue.destination as! PeliculaDetalleViewController
+            
+            if let indexPath = self.peliculasTableView.indexPathForSelectedRow {
+                let peliculaSeleccionada = peliculas[indexPath.row]
+                peliculaDetalleVC.pelicula = peliculaSeleccionada
+            }
+        }
+    }
 
     private func configuraCelda(){
         peliculasTableView.register(UINib(nibName: "PeliculaTableViewCell", bundle: nil), forCellReuseIdentifier: PeliculaTableViewCell.identifier)
@@ -42,6 +53,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Segues.peliculaDetalle, sender: self)
+    }
+   
 }
 
 // MARK: - PeliculasDelegate
