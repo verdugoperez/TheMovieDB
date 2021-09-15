@@ -14,6 +14,7 @@ class PeliculaTableViewCell: UITableViewCell {
 
     @IBOutlet weak var tituloPelicula: UILabel!
     @IBOutlet weak var imagenPelicula: UIImageView!
+    @IBOutlet weak var fechaLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,6 +28,7 @@ class PeliculaTableViewCell: UITableViewCell {
     
     func configura(pelicula: Pelicula){
         tituloPelicula.text = pelicula.title
+        fechaLabel.text = pelicula.releaseDate.convertirAFecha()?.convertirAString()
         descargarImagen(urlString: pelicula.posterPath)
     }
     

@@ -39,3 +39,22 @@ extension UIViewController {
         }
     }
 }
+
+extension Date {
+    func convertirAString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+        
+        return dateFormatter.string(from: self)
+    }
+    
+}
+
+extension String {
+    func convertirAFecha() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy/MM/dd"
+        
+        return dateFormatter.date(from: self)
+    }
+}
