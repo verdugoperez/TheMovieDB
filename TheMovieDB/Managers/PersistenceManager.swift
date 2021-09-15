@@ -14,7 +14,7 @@ enum PersistenceActionType {
 class PersistenceManager {
     private let defaults = UserDefaults.standard
     
-    func guardar(peliculas: [Pelicula]) -> Error? {
+    func guardarPeliculas(peliculas: [Pelicula]) -> Error? {
         do {
             let encoder = JSONEncoder()
             let encodedFavorites = try encoder.encode(peliculas)
@@ -40,4 +40,14 @@ class PersistenceManager {
             completion(.failure(error))
           }
       }
+    
+    func guardarFechaUltimoConsumo(){
+        defaults.setValue(Date(), forKey: UserDefaultKeys.fechaUltimoConsumo)
+    }
+    
+    func obtenerUltimoConsumo() -> Date? {
+        let fecha = UserDefaults.standard.object(forKey: UserDefaultKeys.fechaUltimoConsumo) as? Date
+
+        return fecha
+    }
 }

@@ -17,6 +17,7 @@ struct PeliculasManager {
     private let url =  "https://api.themoviedb.org/3/discover/movie?api_key=b3fe9a9f3bbf3b29fcee2b8c03ac45ef"
     private let urlImagen = "https://image.tmdb.org/t/p/w185"
     private let persistenceManager = PersistenceManager()
+    private let defaults = UserDefaults.standard
     
     var delegate: PeliculasDelegate?
     
@@ -27,6 +28,28 @@ struct PeliculasManager {
     }
     
     func ejecutarRequest(with urlString: String){
+        
+        // Mostrar peliculas cargadas en UserDefaults si el ultimo consumo se hizo en las ultimas 24 horas
+        if let fecha = persistenceManager.obtenerUltimoConsumo() {
+            let diferencia = Calendar.current.dateComponents([.hour, .minute, .second], from: fecha, to: Date())
+            if let horas = diferencia.hour {
+                if horas <= 24 {
+                    persistenceManager.obtenerPeliculasGuardadas { result in
+                          switch result {
+                              case .success(let peliculas):
+                                self.delegate?.obtuvoPeticionExitosa(self, peliculas: peliculas)
+                               
+                              case .failure(let error):
+                                self.delegate?.obtuvoPeticionError(error: error)
+                                
+                          }
+                    }
+                    
+                    return
+                }
+            }
+        }
+        
         if let url = URL(string: urlString){
             let session = URLSession(configuration: .default)
             self.delegate?.estaCargando(self, cargando: true)
@@ -39,7 +62,7 @@ struct PeliculasManager {
                 
                 if let safeData = data {
                     if let peliculas = self.parseJSON(safeData) {
-                        
+                        persistenceManager.guardarFechaUltimoConsumo()
                         self.delegate?.obtuvoPeticionExitosa(self, peliculas: peliculas)
                     }
                     
@@ -60,7 +83,7 @@ struct PeliculasManager {
             let decodedData = try decoder.decode(Resultado.self, from: peliculasData)
             let decodedPeliculas = decodedData.results
             
-            if let error = persistenceManager.guardar(peliculas: decodedPeliculas) {
+            if let error = persistenceManager.guardarPeliculas(peliculas: decodedPeliculas) {
                 delegate?.obtuvoPeticionError(error: error)
             }
             

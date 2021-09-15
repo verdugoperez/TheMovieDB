@@ -48,6 +48,10 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    func diferenciaEntreFechas (fecha: Date) -> TimeInterval {
+        return self.timeIntervalSinceReferenceDate - fecha.timeIntervalSinceReferenceDate
+    }
+    
 }
 
 extension String {
