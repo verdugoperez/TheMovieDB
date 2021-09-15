@@ -5,7 +5,7 @@
 //  Created by Manuel Alejandro Verdugo Pérez on 14/09/21.
 //
 
-import Foundation
+import UIKit
 
 protocol PeliculasDelegate {
     func obtuvoPeticionExitosa(_ peliculasManager: PeliculasManager, peliculas: [Pelicula])
@@ -15,6 +15,7 @@ protocol PeliculasDelegate {
 
 struct PeliculasManager {
     let url =  "https://api.themoviedb.org/3/discover/movie?api_key=b3fe9a9f3bbf3b29fcee2b8c03ac45ef"
+    let urlImagen = "https://image.tmdb.org/t/p/w185"
     
     var delegate: PeliculasDelegate?
     
@@ -63,5 +64,25 @@ struct PeliculasManager {
             delegate?.obtuvoPeticionError(error: error)
             return nil
         }
+    }
+    
+    func descargarImagen(from urlString: String, completion: @escaping(UIImage?) -> Void){
+        guard let url = URL(string: "\(urlImagen)\(urlString)") else {
+            completion(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200,
+                  let data = data,
+                  let image = UIImage(data: data) else {
+                        completion(nil)
+                        return
+                  }
+            
+            completion(image)
+        }
+        
+        task.resume()
     }
 }
