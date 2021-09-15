@@ -22,6 +22,7 @@
 		9D1E726A26F25FE10007F668 /* PeliculaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D1E726826F25FE10007F668 /* PeliculaTableViewCell.xib */; };
 		9D1E726C26F276FD0007F668 /* PeliculaDetalleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1E726B26F276FD0007F668 /* PeliculaDetalleViewController.swift */; };
 		9D1E726E26F277420007F668 /* Constantes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1E726D26F277420007F668 /* Constantes.swift */; };
+		9D1E727026F27B5C0007F668 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1E726F26F27B5C0007F668 /* PersistenceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		9D1E726826F25FE10007F668 /* PeliculaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeliculaTableViewCell.xib; sourceTree = "<group>"; };
 		9D1E726B26F276FD0007F668 /* PeliculaDetalleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeliculaDetalleViewController.swift; sourceTree = "<group>"; };
 		9D1E726D26F277420007F668 /* Constantes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constantes.swift; sourceTree = "<group>"; };
+		9D1E726F26F27B5C0007F668 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				9D1E725C26F1851D0007F668 /* PeliculasManager.swift */,
+				9D1E726F26F27B5C0007F668 /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				9D1E726126F197790007F668 /* LoadingViewController.swift in Sources */,
 				9D1E726E26F277420007F668 /* Constantes.swift in Sources */,
 				9D1E725D26F1851D0007F668 /* PeliculasManager.swift in Sources */,
+				9D1E727026F27B5C0007F668 /* PersistenceManager.swift in Sources */,
 				9D1E725A26F17F5D0007F668 /* Pelicula.swift in Sources */,
 				9D1E726326F198E90007F668 /* Extensions.swift in Sources */,
 				9D1E724A26F17C1B0007F668 /* ViewController.swift in Sources */,

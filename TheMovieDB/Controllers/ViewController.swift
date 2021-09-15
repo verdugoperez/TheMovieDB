@@ -9,17 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // MARK: - Properties
     @IBOutlet weak var peliculasTableView: UITableView!
 
     private var peliculas = [Pelicula]()
     private var peliculasManager = PeliculasManager()
-
+    private var persistenceManager = PersistenceManager()
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         peliculasManager.delegate = self
         configuraCelda()
-        peliculasManager.obtenerTopPeliculas()
+        cargarPeliculas()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -35,7 +38,24 @@ class ViewController: UIViewController {
 
     private func configuraCelda(){
         peliculasTableView.register(UINib(nibName: "PeliculaTableViewCell", bundle: nil), forCellReuseIdentifier: PeliculaTableViewCell.identifier)
-
+    }
+    
+    
+    private func cargarPeliculas(){
+        persistenceManager.obtenerPeliculasGuardadas { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+                case .success(let peliculas):
+                    if peliculas.isEmpty {
+                        self.peliculasManager.obtenerTopPeliculas()
+                    } else {
+                        self.peliculas = peliculas
+                    }
+                case .failure(let error):
+                    self.mostrarAlerta(mensaje: error.localizedDescription)
+            }
+        }
     }
 }
 

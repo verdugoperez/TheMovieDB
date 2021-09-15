@@ -14,8 +14,9 @@ protocol PeliculasDelegate {
 }
 
 struct PeliculasManager {
-    let url =  "https://api.themoviedb.org/3/discover/movie?api_key=b3fe9a9f3bbf3b29fcee2b8c03ac45ef"
-    let urlImagen = "https://image.tmdb.org/t/p/w185"
+    private let url =  "https://api.themoviedb.org/3/discover/movie?api_key=b3fe9a9f3bbf3b29fcee2b8c03ac45ef"
+    private let urlImagen = "https://image.tmdb.org/t/p/w185"
+    private let persistenceManager = PersistenceManager()
     
     var delegate: PeliculasDelegate?
     
@@ -57,8 +58,13 @@ struct PeliculasManager {
         
         do {
             let decodedData = try decoder.decode(Resultado.self, from: peliculasData)
-             
-            return decodedData.results
+            let decodedPeliculas = decodedData.results
+            
+            if let error = persistenceManager.guardar(peliculas: decodedPeliculas) {
+                delegate?.obtuvoPeticionError(error: error)
+            }
+            
+            return decodedPeliculas
          
         } catch {
             delegate?.obtuvoPeticionError(error: error)

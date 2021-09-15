@@ -11,3 +11,8 @@ import Foundation
 struct Segues {
     static let peliculaDetalle = "peliculaDetalle"
 }
+
+struct UserDefaultKeys {
+    static let peliculas = "peliculas"
+    static let fechaUltimoConsumo = "fechaUltimoConsumo"
+}
