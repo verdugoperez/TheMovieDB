@@ -10,10 +10,13 @@ import UIKit
 class ViewController: UIViewController {
     
     var peliculas = ["P1", "P2", "P3", "P4", "P5"]
+    private var peliculasManager = PeliculasManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        peliculasManager.delegate = self
+        peliculasManager.obtenerTopPeliculas()
     }
 
 
@@ -31,6 +34,16 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = peliculas[indexPath.row]
         
         return cell
+    }
+}
+
+extension ViewController: PeliculasDelegate {
+    func obtuvoPeticionExitosa(_ peliculasManager: PeliculasManager, peliculas: [Pelicula]) {
+        
+    }
+    
+    func obtuvoPeticionError(error: Error) {
+        
     }
     
     
