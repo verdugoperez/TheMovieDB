@@ -18,11 +18,12 @@ protocol PeliculasDelegate {
     func obtuvoPeticionError(error: Error)
 }
 
-struct PeliculasManager {
+class PeliculasManager {
     private let url =  "https://api.themoviedb.org/3/discover/movie?api_key=b3fe9a9f3bbf3b29fcee2b8c03ac45ef"
     private let urlImagen = "https://image.tmdb.org/t/p"
     private let persistenceManager = PersistenceManager()
     private let defaults = UserDefaults.standard
+    private let cache = NSCache<NSString, UIImage>()
     
     var delegate: PeliculasDelegate?
     
@@ -67,7 +68,7 @@ struct PeliculasManager {
                 
                 if let safeData = data {
                     if let peliculas = self.parseJSON(safeData) {
-                        persistenceManager.guardarFechaUltimoConsumo()
+                        self.persistenceManager.guardarFechaUltimoConsumo()
                         self.delegate?.obtuvoPeticionExitosa(self, peliculas: peliculas)
                     }
                     
@@ -101,18 +102,30 @@ struct PeliculasManager {
     }
     
     func descargarImagen(from urlString: String, tipoImagen: TipoImagen? = .poster, completion: @escaping(UIImage?) -> Void){
+        // Regresar imagen si ya está en cache
+        let cacheKey = NSString(string: urlString)
+        if let image = cache.object(forKey: cacheKey){
+            completion(image)
+            return
+        }
+        
         guard let url = URL(string: "\(urlImagen)/\(tipoImagen!.rawValue)\(urlString)") else {
             completion(nil)
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200,
-                  let data = data,
-                  let image = UIImage(data: data) else {
-                        completion(nil)
-                        return
-                  }
+        let task = URLSession.shared.dataTask(with: url) { [weak self]  data, response, error in
+            guard let self = self,
+                 error == nil,
+                 let response = response as? HTTPURLResponse, response.statusCode == 200,
+                 let data = data,
+                 let image = UIImage(data: data) else {
+                       completion(nil)
+                       return
+            }
+            
+            // guardar la imagen en cache
+            self.cache.setObject(image, forKey: cacheKey)
             
             completion(image)
         }

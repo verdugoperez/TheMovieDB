@@ -26,7 +26,7 @@ class PeliculaDetalleViewController: UIViewController {
     private func actualizaUI(){
         self.title = pelicula.title
         overviewLabel.text = pelicula.overview
-        calificacionLabel.text = "\(pelicula.voteAverage)⭐️"
+        calificacionLabel.text = "\(pelicula.voteAverage) ⭐️"
         fechaLabel.text = pelicula.releaseDate.convertirAFecha()?.convertirAString()
         obtenerImagenPortada()
     }
