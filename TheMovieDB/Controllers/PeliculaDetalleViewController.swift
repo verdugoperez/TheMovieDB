@@ -9,24 +9,25 @@ import UIKit
 
 class PeliculaDetalleViewController: UIViewController {
     
+    @IBOutlet weak var portadaImageView: UIImageView!
     var pelicula: Pelicula!
-
+    private let peliculasManager = PeliculasManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         self.title = pelicula.title
+        obtenerImagenPortada()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func obtenerImagenPortada(){
+        peliculasManager.descargarImagen(from: pelicula.backdropPath, tipoImagen: .backDrop) { [weak self ]imagen in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.portadaImageView.image = imagen
+            }
+        }
     }
-    */
-
 }

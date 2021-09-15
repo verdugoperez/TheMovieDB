@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum TipoImagen: String  {
+    case poster = "w185"
+    case backDrop = "w1280"
+}
+
 protocol PeliculasDelegate {
     func obtuvoPeticionExitosa(_ peliculasManager: PeliculasManager, peliculas: [Pelicula])
     func estaCargando(_ peliculasManager: PeliculasManager, cargando: Bool)
@@ -15,7 +20,7 @@ protocol PeliculasDelegate {
 
 struct PeliculasManager {
     private let url =  "https://api.themoviedb.org/3/discover/movie?api_key=b3fe9a9f3bbf3b29fcee2b8c03ac45ef"
-    private let urlImagen = "https://image.tmdb.org/t/p/w185"
+    private let urlImagen = "https://image.tmdb.org/t/p"
     private let persistenceManager = PersistenceManager()
     private let defaults = UserDefaults.standard
     
@@ -35,14 +40,14 @@ struct PeliculasManager {
             if let horas = diferencia.hour {
                 if horas <= 24 {
                     persistenceManager.obtenerPeliculasGuardadas { result in
-                          switch result {
-                              case .success(let peliculas):
-                                self.delegate?.obtuvoPeticionExitosa(self, peliculas: peliculas)
-                               
-                              case .failure(let error):
-                                self.delegate?.obtuvoPeticionError(error: error)
-                                
-                          }
+                      switch result {
+                          case .success(let peliculas):
+                            self.delegate?.obtuvoPeticionExitosa(self, peliculas: peliculas)
+                           
+                          case .failure(let error):
+                            self.delegate?.obtuvoPeticionError(error: error)
+                            
+                      }
                     }
                     
                     return
@@ -95,8 +100,8 @@ struct PeliculasManager {
         }
     }
     
-    func descargarImagen(from urlString: String, completion: @escaping(UIImage?) -> Void){
-        guard let url = URL(string: "\(urlImagen)\(urlString)") else {
+    func descargarImagen(from urlString: String, tipoImagen: TipoImagen? = .poster, completion: @escaping(UIImage?) -> Void){
+        guard let url = URL(string: "\(urlImagen)/\(tipoImagen!.rawValue)\(urlString)") else {
             completion(nil)
             return
         }

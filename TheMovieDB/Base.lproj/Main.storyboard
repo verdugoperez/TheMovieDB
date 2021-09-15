@@ -51,10 +51,26 @@
                     <view key="view" contentMode="scaleToFill" id="h6W-2b-LFE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2wg-Pb-7dN">
+                                <rect key="frame" x="0.0" y="88" width="414" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="nBd-7c-RPM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="F0F-9Y-lcG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2wg-Pb-7dN" firstAttribute="top" secondItem="F0F-9Y-lcG" secondAttribute="top" id="8nP-yj-sbL"/>
+                            <constraint firstItem="2wg-Pb-7dN" firstAttribute="leading" secondItem="F0F-9Y-lcG" secondAttribute="leading" id="GHN-Uq-6ep"/>
+                            <constraint firstItem="F0F-9Y-lcG" firstAttribute="trailing" secondItem="2wg-Pb-7dN" secondAttribute="trailing" id="PF4-j5-hax"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rGM-Be-QZn"/>
+                    <connections>
+                        <outlet property="portadaImageView" destination="2wg-Pb-7dN" id="Kiu-VJ-PfE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACC-1H-2RE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
