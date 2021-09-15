@@ -9,7 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var peliculas = ["P1", "P2", "P3", "P4", "P5"]
+    @IBOutlet weak var peliculasTableView: UITableView!
+    var peliculas = [Pelicula]()
+    
     private var peliculasManager = PeliculasManager()
 
     override func viewDidLoad() {
@@ -31,15 +33,28 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celdaPelicula")!
         
-        cell.textLabel?.text = peliculas[indexPath.row]
+        cell.textLabel?.text = peliculas[indexPath.row].title
         
         return cell
     }
 }
 
+// MARK: - PeliculasDelegate
 extension ViewController: PeliculasDelegate {
+    func estaCargando(_ peliculasManager: PeliculasManager, cargando: Bool) {
+        if cargando {
+            self.mostrarCargando()
+        } else {
+            self.removerCargando()
+        }
+    }
+    
     func obtuvoPeticionExitosa(_ peliculasManager: PeliculasManager, peliculas: [Pelicula]) {
+        self.peliculas = peliculas
         
+        DispatchQueue.main.async {
+            self.peliculasTableView.reloadData()
+        }
     }
     
     func obtuvoPeticionError(error: Error) {

@@ -9,6 +9,7 @@ import Foundation
 
 protocol PeliculasDelegate {
     func obtuvoPeticionExitosa(_ peliculasManager: PeliculasManager, peliculas: [Pelicula])
+    func estaCargando(_ peliculasManager: PeliculasManager, cargando: Bool)
     func obtuvoPeticionError(error: Error)
 }
 
@@ -26,21 +27,24 @@ struct PeliculasManager {
     func ejecutarRequest(with urlString: String){
         if let url = URL(string: urlString){
             let session = URLSession(configuration: .default)
+            self.delegate?.estaCargando(self, cargando: true)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil {
                     self.delegate?.obtuvoPeticionError(error: error!)
+                    self.delegate?.estaCargando(self, cargando: false)
                     return
                 }
                 
                 if let safeData = data {
                     if let peliculas = self.parseJSON(safeData) {
+                        
                         self.delegate?.obtuvoPeticionExitosa(self, peliculas: peliculas)
                     }
                     
                 }
-                
             }
             
+            self.delegate?.estaCargando(self, cargando: false)
             task.resume()
         }
     }

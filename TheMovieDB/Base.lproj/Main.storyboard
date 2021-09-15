@@ -44,6 +44,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gQJ-E6-dpB" secondAttribute="trailing" id="iFz-0z-fYQ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="peliculasTableView" destination="gQJ-E6-dpB" id="1so-b8-JGy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
