@@ -20,6 +20,7 @@ class PeliculaDetalleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        navigationController?.navigationBar.prefersLargeTitles = false
         actualizaUI()
     }
     

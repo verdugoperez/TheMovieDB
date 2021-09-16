@@ -20,11 +20,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+       
+
         peliculasManager.delegate = self
         configuraCelda()
         peliculasManager.obtenerTopPeliculas()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Segues.peliculaDetalle {
             let peliculaDetalleVC = segue.destination as! PeliculaDetalleViewController
