@@ -15,4 +15,5 @@ struct Segues {
 struct UserDefaultKeys {
     static let peliculas = "peliculas"
     static let fechaUltimoConsumo = "fechaUltimoConsumo"
+    static let page = "page"
 }

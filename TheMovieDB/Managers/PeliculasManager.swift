@@ -19,6 +19,7 @@ protocol PeliculasDelegate {
 }
 
 class PeliculasManager {
+    
     private let url =  "https://api.themoviedb.org/3/discover/movie?api_key=b3fe9a9f3bbf3b29fcee2b8c03ac45ef"
     private let urlImagen = "https://image.tmdb.org/t/p"
     private let persistenceManager = PersistenceManager()
@@ -56,8 +57,9 @@ class PeliculasManager {
             }
         }
         
-        if let url = URL(string: urlString){
+        if let url = URL(string: "\(urlString)&page=\(persistenceManager.obtenerPagina())"){
             let session = URLSession(configuration: .default)
+            
             self.delegate?.estaCargando(self, cargando: true)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil {
@@ -82,6 +84,7 @@ class PeliculasManager {
     
     func parseJSON(_ peliculasData: Data) -> [Pelicula]? {
         let decoder = JSONDecoder()
+        let pagina = persistenceManager.obtenerPagina()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .iso8601
         
@@ -91,6 +94,10 @@ class PeliculasManager {
             
             if let error = persistenceManager.guardarPeliculas(peliculas: decodedPeliculas) {
                 delegate?.obtuvoPeticionError(error: error)
+            }
+            
+            if pagina < decodedData.totalPages {
+                self.persistenceManager.guardarPagina(pagina: pagina + 1)
             }
             
             return decodedPeliculas

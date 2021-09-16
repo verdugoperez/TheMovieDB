@@ -45,6 +45,16 @@ class PersistenceManager {
         defaults.setValue(Date(), forKey: UserDefaultKeys.fechaUltimoConsumo)
     }
     
+    func guardarPagina(pagina: Int? = 1){
+        defaults.setValue(pagina!, forKey: UserDefaultKeys.page)
+    }
+    
+    func obtenerPagina() -> Int {
+        let page = defaults.object(forKey: UserDefaultKeys.page) as? Int ?? 1
+
+        return page
+    }
+    
     func obtenerUltimoConsumo() -> Date? {
         let fecha = UserDefaults.standard.object(forKey: UserDefaultKeys.fechaUltimoConsumo) as? Date
 
